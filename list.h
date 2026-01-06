@@ -35,7 +35,7 @@ public:
     template<typename U>
     T find(U key, bool (*match)(T v1,U v2)){
         if(this->head == NULL){
-            return 0;
+            return T();
         }
         Node<T>* curr = this->head;
         while(curr != NULL){
@@ -44,6 +44,6 @@ public:
             }
             curr = curr->getNext();
         }
-        return 0;
+        return T();
     }
 };
