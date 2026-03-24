@@ -1,3 +1,5 @@
+#pragma once
+
 template<typename T,typename U>class Pair{
     public:
         T key;

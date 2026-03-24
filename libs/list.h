@@ -1,9 +1,13 @@
+#pragma once
+
 #include <stddef.h>
 
 template<typename T> class Node{
     T val;
     Node<T>* next;
-public:
+
+  public:
+    Node():val(T()),next(NULL) {}
     T getVal(){
         return this->val;
     }
@@ -21,7 +25,12 @@ public:
 
 template<typename T> class List{
     Node<T>* head;
-public:
+
+  public:
+    List():head(NULL) {}
+    Node<T>* getHead() {
+        return this->head;
+    }
     void insert(T val){
         Node<T>* obj = new Node<T>();
         obj->setVal(val);
@@ -45,5 +54,39 @@ public:
             curr = curr->getNext();
         }
         return T();
+    }
+
+    template <typename U>
+    bool has(U key, bool (*match)(T v1, U v2)) {
+      if (this->head == NULL) {
+        return false;
+      }
+      Node<T> *curr = this->head;
+      while (curr != NULL) {
+        if (match(curr->getVal(), key)) {
+          return true;
+        }
+        curr = curr->getNext();
+      }
+      return false;
+    }
+
+    int size(){
+        int count = 0;
+        Node<T>* curr = this->head;
+        while(curr != NULL){
+            count++;
+            curr = curr->getNext();
+        }
+        return count;
+    }
+
+    template <typename Func>
+    void forEach(Func fn) {
+      Node<T> *curr = this->head;
+      while (curr != NULL) {
+        fn(curr->getVal());
+        curr = curr->getNext();
+      }
     }
 };

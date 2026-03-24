@@ -1,3 +1,5 @@
+#pragma once
+
 #include"list.h"
 #include"pair.h"
 
@@ -11,8 +13,13 @@ template<typename T,typename U> class Map{
         return a.key == b;
     }
 public:
-    Map(): K(10){
-        buckets = new List<Pair<T,U> >[K];
+    Map() : K(10) {
+        buckets = new List<Pair<T, U> >[K];
+    }
+
+    bool has(T key) {
+        int x = this->getIndex(key);
+        return this->buckets[x].has(key, match);
     }
     void set(T key, U val){
         int x = this->getIndex(key);
@@ -24,6 +31,12 @@ public:
         return this->buckets[x].find(key,match).val;
 
     }
-
+    int size(){
+        int count = 0;
+        for(int i = 0; i < this->K; i++){
+            count += this->buckets[i].size();
+        }
+        return count;
+    }
 };
 
